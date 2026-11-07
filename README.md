@@ -1,6 +1,7 @@
 <p align="center">
-  <img src="assets/hello-vla-cover.png" alt="机器人合影，沿用 Hello-VLA 的封面" width="62%" />
+  <img src="assets/main.png" alt="机器人合影，沿用 Hello-VLA 的封面" width="99%" />
 </p>
+
 
 <h1 align="center">🤖 Embodied API in the Wild</h1>
 
@@ -240,8 +241,8 @@
 
 
 <table>
-  <tr><th align="left">📝 备注</th></tr>
-  <tr><td>对于不同模型的能力分析，以第三方测试为主，官方展示的能力不认为具备有对对应的能力</td></tr>
+  <tr><th align="left">能力评级（满分 5⭐）</th></tr>
+  <tr><td>依据当前收录的第三方真机结果与研究者反馈做个人初评；官方演示作为补充，不单独作为能力成立的依据。星级评价已展示的能力，zero-shot 条件另行注明。<br><br>⭐ <strong>较弱：</strong>以失败或局部进展为主。<br>⭐⭐ <strong>初步：</strong>已有少量完整成功，但执行不稳定或任务范围较窄。<br>⭐⭐⭐ <strong>具备基础能力：</strong>多种任务或重复运行已有成功，复杂条件下仍有明显局限。<br>⭐⭐⭐⭐ <strong>较强：</strong>多类任务的重复评测较稳定，并有跨场景表现支持。<br>⭐⭐⭐⭐⭐ <strong>成熟：</strong>复杂任务、不同场景下持续稳定，并有自主纠错与恢复记录支持。<br><br>缺少对应真机材料时标注<strong>“暂不评级”</strong>。能力星级不等于成功率，也不同于 Benchmark 的 3🌟 任务难度；卡片红绿框仍只表示对应任务是否有过完整成功。</td></tr>
 </table>
 
 ## 🤖 Dream-1
@@ -251,8 +252,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧠 理解能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>对于环境的感知理解能力较弱，对于物体的类别泛化能力较弱，但有成功案例</strong><br><br>Eastworld 的 <a href="https://dreamlabs.ai/research/dream-1/assets/beta/eastworld.mp4">zero-shot 苹果入盒</a>提供了成功例子；SE3 的错箱、违反禁抓约束和 Blupe 的选错目标说明，复杂约束遵循仍有明确失败。</td></tr>
+  <tr><th align="left">能力小结 · ⭐（1/5）</th></tr>
+  <tr><td><strong>对于环境的感知理解能力较弱，对于物体的类别泛化能力较弱，但有成功案例</strong><br><br>Eastworld 的 <a href="https://dreamlabs.ai/research/dream-1/assets/beta/eastworld.mp4">zero-shot 苹果入盒</a>提供了成功例子；SE3 的错箱、违反禁抓约束和 Blupe 的选错目标说明，复杂约束遵循仍有明确失败。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -301,8 +302,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🦾 抓取能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>已有基础抓放的真机 zero-shot 演示。</strong><br><br>小林的自制机械臂抓塑料瓶、毛绒玩具，以及 Eastworld 的苹果入盒，支持基础抓取能力。SO-101 的反复失败表明，这项能力尚不能在所有配置上稳定复现。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已有基础抓放的真机 zero-shot 演示。</strong><br><br>小林的自制机械臂抓塑料瓶、毛绒玩具，以及 Eastworld 的苹果入盒，支持基础抓取能力。SO-101 的反复失败表明，这项能力尚不能在所有配置上稳定复现。</td></tr>
 </table>
 
 
@@ -384,8 +385,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🪡 精细操作能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>尚未确认真机 zero-shot 精细操作成功。</strong><br><br>SE3 的试管任务虽有 9/10 次抬起，但指定插入未完成；官方插吸管、折盒子和移液器片段未逐项披露训练条件，暂不能据此确认 zero-shot 精细操作。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐（2/5）</th></tr>
+  <tr><td><strong>精细操作已有个别成功，对准插入仍不稳定。</strong><br><br>合作方 KAIST 的折盒片段已完成，但逐任务训练条件未披露。SE3 的试管插入、套柱均为 0/10 完整成功；试管虽有 9/10 次抬起，仍只是中间步骤。当前支持有限操作能力，尚不能确认稳定的 zero-shot 精细执行。</td></tr>
 </table>
 
 <table align="center" style="width:900px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -456,8 +457,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧩 长程任务能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>组合系统下已有 zero-shot 多步骤任务演示。</strong><br><br>Dexmate 已展示导航到货架、拿取番茄酱并丢弃的流程。Dream-1 负责操作，规划与导航由外部模块承担；这条记录支持组合系统执行，不证明 Dream-1 能独立规划长任务。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐（2/5）</th></tr>
+  <tr><td><strong>已有有限多步骤任务完成记录，复杂长程能力仍待验证。</strong><br><br>第三方 RoboCurve 的叠三碗 trial 4 标记 complete，Metal Arm 也展示了连续收纳工具；任务范围和重复统计仍有限。SE3 的分类与装箱均为 0/10 完整成功。官方 Dexmate 演示作为组合系统补充，其规划与导航由外部模块承担。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -526,8 +527,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧠 理解能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>已展示 zero-shot 空间理解与主动观察。</strong><br><br>SenseNova 的双臂插花中，Astra 移动空闲腕相机看清瓶口，再完成插入。该记录明确无任务示范，支持依据目标、空间关系和新观察调整动作。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已展示 zero-shot 空间理解与主动观察。</strong><br><br>SenseNova 的双臂插花中，Astra 移动空闲腕相机看清瓶口，再完成插入。该记录明确无任务示范，支持依据目标、空间关系和新观察调整动作。</td></tr>
 </table>
 
 - **【第三方】** **[OpenRUA：空间理解与指令遵循](https://openrua.ai/uni-robot-agent)** · 📄 报告 · [能力分项图](#二openrua--19-类真机任务)
@@ -563,8 +564,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🦾 抓取能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>基础 zero-shot 抓放已经完成。</strong><br><br>GPT-GEAR 的真机基础抓放成功 5/5；同组受限芒果抓取为 0/5。可以确认基础能力，但夹爪开口、障碍与接近姿态仍会导致失败。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>基础 zero-shot 抓放已经完成。</strong><br><br>GPT-GEAR 的真机基础抓放成功 5/5；同组受限芒果抓取为 0/5。可以确认基础能力，但夹爪开口、障碍与接近姿态仍会导致失败。</td></tr>
 </table>
 
 <table align="center">
@@ -617,8 +618,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🪡 精细操作能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>zero-shot 对齐插入已有成功记录。</strong><br><br>GPT-GEAR 的方块插杯无示范组成功 2/5，已构成存在性证据；低成功率及关节限位失败说明精细执行仍不稳定。画廊单段视频的 shot 条件未逐一标注，以分组实验结果为准。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐（2/5）</th></tr>
+  <tr><td><strong>zero-shot 对齐插入已有成功记录。</strong><br><br>GPT-GEAR 的方块插杯无示范组成功 2/5，已构成存在性证据；低成功率及关节限位失败说明精细执行仍不稳定。画廊单段视频的 shot 条件未逐一标注，以分组实验结果为准。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -680,8 +681,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧩 长程任务能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>✅ <strong>zero-shot 多步骤任务已有完成记录。</strong><br><br>GPT-GEAR 的倾倒入抽屉、货架重排分别成功 2/5、1/5。可以确认有限步骤的连续执行能力，尚不能推广为长时间、复杂任务的可靠完成。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>zero-shot 多步骤任务已有完成记录。</strong><br><br>GPT-GEAR 的倾倒入抽屉、货架重排分别成功 2/5、1/5。可以确认有限步骤的连续执行能力，尚不能推广为长时间、复杂任务的可靠完成。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -773,8 +774,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧠 理解能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>⭕️ <strong>相较于 dream1 似乎有更强的感知理解能力。</strong><br><br>已有手机放到香蕉左侧、按颜色顺序叠杯的真机演示；逐视频的任务训练与示范条件未披露，因此目前只能确认有这些操作示例。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>相较于 dream1 似乎有更强的感知理解能力。</strong><br><br>已有手机放到香蕉左侧、按颜色顺序叠杯的真机演示；逐视频的任务训练与示范条件未披露，因此目前只能确认有这些操作示例。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -803,8 +804,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🦾 抓取能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>已有抓放演示，zero-shot 条件尚未确认。</strong><br><br>外部实验室展示了桌面物体、茄子和多物体收纳，但任务训练与示范条件未单独披露。南瓜抓取还有未完成记录，暂不确认 zero-shot 抓取能力。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已有抓放演示，zero-shot 条件尚未确认。</strong><br><br>外部实验室展示了桌面物体、茄子和多物体收纳，但任务训练与示范条件未单独披露。南瓜抓取还有未完成记录，暂不确认 zero-shot 抓取能力。</td></tr>
 </table>
 
 <table align="center">
@@ -856,8 +857,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🪡 精细操作能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>已有对齐与插入演示，zero-shot 条件尚未确认。</strong><br><br>叠杯、面包入槽和插笔都有真机片段；当前资料没有逐项说明是否使用任务示范或训练，不能仅凭成功片段确认 zero-shot 精细操作。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已有对齐与插入演示，zero-shot 条件尚未确认。</strong><br><br>叠杯、面包入槽和插笔都有真机片段；当前资料没有逐项说明是否使用任务示范或训练，不能仅凭成功片段确认 zero-shot 精细操作。</td></tr>
 </table>
 
 <table align="center">
@@ -895,8 +896,8 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 ### 🧩 长程任务能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>尚无条件明确的真机 zero-shot 长程成功证据。</strong><br><br>抽屉收纳片段未披露完整运行与训练条件；Allen 的重试记录来自仿真。当前材料不足以确认自主完成整段长程任务。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐（2/5）</th></tr>
+  <tr><td><strong>已有连续收纳演示，复杂长程能力仍待验证。</strong><br><br>外部 beta 片段展示将多个物体连续收进抽屉，支持有限步骤的连续执行；完整运行条件、任务训练与重复统计未披露。Allen 的自主重试记录来自仿真，不计入真机评级，目前仍不足以判断复杂规划与长期自主恢复能力。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -933,15 +934,15 @@ Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型�
 ### 🧠 理解能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>当前未收录可确认理解能力的真机 zero-shot 演示。</strong><br><br>需要补充能单独观察目标选择、空间关系或指令约束的成功记录，并明确实验条件。</td></tr>
+  <tr><th align="left">能力小结 · 暂不评级（材料不足）</th></tr>
+  <tr><td><strong>直接材料不足，暂不判断理解能力强弱。</strong><br><br>当前缺少能单独观察目标选择、空间关系或指令约束的真机记录；需要补充对应案例与实验条件后再评级。</td></tr>
 </table>
 
 ### 🦾 抓取能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>已有真机抓取成功轨迹，zero-shot 条件尚未确认。</strong><br><br>XDOF 当前运行库已有拉布后抓起毛绒玩具的成功记录，南瓜展示仍有失败。新轨迹未完整披露任务训练或示范条件，因此目前可以确认该配置完成过抓取，尚不能确认其 zero-shot 条件。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已有真机抓取成功轨迹，zero-shot 条件尚未确认。</strong><br><br>XDOF 当前运行库已有拉布后抓起毛绒玩具的成功记录，南瓜展示仍有失败。新轨迹未完整披露任务训练或示范条件，因此目前可以确认该配置完成过抓取，尚不能确认其 zero-shot 条件。</td></tr>
 </table>
 
 <table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -970,8 +971,8 @@ Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型�
 ### 🪡 精细操作能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>当前未确认真机 zero-shot 精细操作成功。</strong><br><br>Cortex 的任务得分包含中间步骤，且 zero-shot 条件未披露；现有记录不足以确认完整精细操作的 zero-shot 成功。</td></tr>
+  <tr><th align="left">能力小结 · ⭐（1/5）</th></tr>
+  <tr><td><strong>当前未确认真机 zero-shot 精细操作成功。</strong><br><br>Cortex 的任务得分包含中间步骤，且 zero-shot 条件未披露；现有记录不足以确认完整精细操作的 zero-shot 成功。</td></tr>
 </table>
 
 - **【第三方】** **[Cortex：Gemini 精密任务对照](https://cortexrobot.ai/research/llm-real-world-robotics-evals/)** · ▶ 视频合集
@@ -985,8 +986,8 @@ Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型�
 ### 🧩 长程任务能力
 
 <table>
-  <tr><th align="left">能力小结</th></tr>
-  <tr><td>❌ <strong>当前未确认真机 zero-shot 完整长程任务成功。</strong><br><br>RoboCurve 已有叠三碗完整成功的单次记录，支持有限步骤的连续操作；任务训练与示范条件未完整披露。48.2% 仍是汇总进度分，不能代替完整完成率，也不能从一个成功片段推断长程可靠性。</td></tr>
+  <tr><th align="left">能力小结 · ⭐⭐（2/5）</th></tr>
+  <tr><td><strong>当前未确认真机 zero-shot 完整长程任务成功。</strong><br><br>RoboCurve 已有叠三碗完整成功的单次记录，支持有限步骤的连续操作；任务训练与示范条件未完整披露。48.2% 仍是汇总进度分，不能代替完整完成率，也不能从一个成功片段推断长程可靠性。</td></tr>
 </table>
 
 <table align="center" style="width:480px;max-width:100%;margin-left:auto;margin-right:auto;">
@@ -1007,7 +1008,7 @@ Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型�
 
 ## 🤝 一起补充
 
-如果你看到某个模型的真机复现，可以按照 **模型 → 能力 → ✅ / ❌ / ⭕️ 初步结论 → 支撑案例与反例** 来补充。研究者的使用反馈也可以作为判断依据，请附上原始来源和具体观察，帮助我们继续修正理解。
+如果你看到某个模型的真机复现，可以按照 **模型 → 能力 → 五星评级与初步结论 → 支撑案例与反例** 来补充。研究者的使用反馈也可以作为判断依据，请附上原始来源和具体观察，帮助我们继续修正理解。
 
 欢迎直接通过 Issue 或 PR 补充研究者、模型、任务条件、观察结果和原始视频链接，或修改本 README。
 
