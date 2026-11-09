@@ -25,22 +25,35 @@
 
 整个项目分为了两个部分去整理：
 
-1. **Benchmark**，看不同模型在同一套任务中的表现；
+1. **Benchmark**，看不同模型在同一套任务中端到端的表现，**目前不涉及非端到端的输出（agent 类）**；
 2. 不同模型 zero-shot 能力表现，分析**理解能力、抓取能力、精细操作能力和长程任务能力**，并总结对于这些 api 泛化能力的感受；
 
 这些初步结论综合 **实验结果、视频表现和研究者的使用反馈**。每条案例保留研究者、实验条件、具体结果和原始来源，方便核对与更新。
 
-**来源标识**：**【官方】** 指模型开发方的演示或自评；**【第三方】** 指外部研究者、团队或用户的记录。合作方演示也归为第三方，由模型官网选录的片段另注“官方收录”。
+**来源标识**：**【官方】** 指模型开发方的案例；**【第三方】** 指外部研究者、团队或用户的记录。合作方演示也归为第三方，由模型官网选录的片段另注“官方收录”。
 
-**卡片结果**：按卡片所列任务与实验条件判断。🟩 **成功（绿框）**：当前收录中至少有一次完整任务成功；🟥 **失败（红框）**：当前收录中没有完整任务成功记录。局部动作或中间步骤得分不算完整成功。卡片可能展示失败片段，颜色仍按同任务、同条件的已收录结果判定。
+**案例结果**：按卡片所列任务与实验条件判断。🟩 **成功**：当前收录中至少有一次完整任务成功；🟥 **失败**：当前收录中没有完整任务成功记录。局部动作或中间步骤得分不算完整成功。
 
-如果你也对具身智能的 zero-shot 复现感兴趣，欢迎与我交流、分享实验和观察，一起共建这个项目！： 📧：[yirongzzz@163.com](mailto:yirongzzz@163.com)
+<table>
+  <tr><th align="left">能力评级（满分 5⭐）</th></tr>
+  <tr><td>依据当前收录的第三方真机结果与研究者反馈做个人初评；官方演示作为补充，不单独作为能力成立的依据。星级评价已展示的能力，zero-shot 条件另行注明。<br><br>⭐ <strong>较弱：</strong>以失败或局部进展为主。<br>⭐⭐ <strong>初步：</strong>已有少量完整成功，但执行不稳定或任务范围较窄。<br>⭐⭐⭐ <strong>具备基础能力：</strong>多种任务或重复运行已有成功，复杂条件下仍有明显局限。<br>⭐⭐⭐⭐ <strong>较强：</strong>多类任务的重复评测较稳定，并有跨场景表现支持。<br>⭐⭐⭐⭐⭐ <strong>成熟：</strong>复杂任务、不同场景下持续稳定，并有自主纠错与恢复记录支持。<br><br>缺少对应真机材料时标注<strong>“暂不评级”</strong>。能力星级不等于成功率，也不同于 Benchmark 的 3🌟 任务难度；卡片红绿框仍只表示对应任务是否有过完整成功。</td></tr>
+</table>
+
+本仓库均为本人对于目前各大 api 在具身领域的真实感受，如果你也对具身智能的 zero-shot 复现感兴趣，欢迎与我交流、分享实验和观察，一起共建这个项目！： 📧：[yirongzzz@163.com](mailto:yirongzzz@163.com)
+
+**📓 TODO**:
+
+- [ ] agent 类的 benchmark
+
+
+
+---
 
 ## 📋 目录
 
 | 章节 | 内容 |
 | --- | --- |
-| [📊 Benchmark](#-benchmark) | 多模型对比、任务设置与评测结果 |
+| [📊 Benchmark](#-benchmark) | 多模型对比、任务设置与评测结果（不涉及 agent 类的模型测评） |
 | [🤖 Dream-1](#-dream-1) | [理解能力](#-理解能力) · [抓取能力](#-抓取能力) · [精细操作能力](#-精细操作能力) · [长程任务能力](#-长程任务能力) |
 | [🤖 GPT-6 Astra](#-gpt-6-astra) | [理解能力](#-理解能力-1) · [抓取能力](#-抓取能力-1) · [精细操作能力](#-精细操作能力-1) · [长程任务能力](#-长程任务能力-1) |
 | [🤖 破壳 RoboAPI](#-破壳-roboapipoke-aurora) | [理解能力](#-理解能力-2) · [抓取能力](#-抓取能力-2) · [精细操作能力](#-精细操作能力-2) · [长程任务能力](#-长程任务能力-2) |
@@ -112,7 +125,7 @@
 
 <table>
   <tr><th align="left">📝 备注</th></tr>
-  <tr><td>在这个 benchmark 下，astra 和 qwen 并非端到端的输出，采用的是 Agent 形式</td></tr>
+  <tr><td>在这个 benchmark 下，astra 和 qwen 并非端到端的输出，采用的是 Agent 形式，目前该仓库的 benchmark 暂不收集太多 agent 类的非端到端的输出</td></tr>
 </table>
 
 ### 三、破壳 · RoboAPI 官方任务评测
@@ -143,75 +156,7 @@
   <tr><td><strong>我的理解：</strong>这组结果可以帮助选择值得优先复现的任务，但还不足以判断换一个实验室后能否保持相同优势。要验证泛化，需要结合下方外部案例，并在一致条件下重复测试。<br><br><strong>Zero-shot 条件：</strong>官方将 RoboAPI 定位为无需针对新任务额外采集数据或训练的接口；本组各模型的微调、示范、重复次数与预算未完整披露。图中是官方报告的分类成功率，暂不作为独立复现的统一排名。</td></tr>
 </table>
 
-### 四、XDOF · Ember-0
-
-**【第三方】** **XDOF · 2026-10-23 原报告**　[▶ 视频 / 记录](https://benchmarks.xdof.ai/)
-
-**任务介绍：** Ember-0 在双臂 YAM 上设置 16 类操作任务，同时考察空间推理、工具使用、精细接触和连续执行。下面列出代表任务；每项记录中间步骤与最终是否成功。[评测方任务说明](https://www.xdof.ai/blog/evaluating-llms)
-
-| 代表任务 | 要完成什么 / 难点 | 难度 |
-| --- | --- | --- |
-| 竖起倒瓶 | 调整倒放瓶子的姿态，让它竖直放稳。 | 🌟 |
-| 拉毛巾取玩具 | 先拉近毛巾，再拿到原本够不着的玩具，需要判断间接作用。 | 🌟🌟 |
-| 用夹钳夹面包 | 正确抓持并操纵夹钳，让工具夹住面包。 | 🌟🌟🌟 |
-| 不碰球让球入碗 | 倾斜托盘使球滚进碗，控制方向与运动过程。 | 🌟🌟🌟 |
-| 展开 T 恤 | 双臂控制衣角，处理布料不断变化的形状。 | 🌟🌟🌟 |
-| 托盘上准备麦片餐 | 连续完成盛放与摆放步骤，跟踪进度并协调双臂。 | 🌟🌟🌟 |
-
-**对比模型：** GPT-6 Astra / GPT-6.1 Sol / Fable 5.1 / Opus 5.5 / Meta Muse
-
-**整体成功率对比**
-
-<p align="center">
-  <a href="assets/xdof-results.png"><img src="assets/xdof-results.png" alt="XDOF Ember-0 原图：Astra 19.6%、Sol 19.4%、Opus 11.6%、Fable 9.1%、Meta Muse 4.4%；16 项任务成功率等权平均" width="90%" /></a>
-</p>
-
-来源：[XDOF 原报告](https://www.xdof.ai/blog/evaluating-llms) · [原图](https://www.xdof.ai/blog/evaluating-llms/results.png)。采用 **16 项任务成功率的等权平均**，误差线为 95% bootstrap 区间；这组对比不含 Gemini 和 Dream-1。
-
-<details>
-<summary><strong>展开：16 项任务的逐模型成功率</strong></summary>
-
-<p align="center">
-  <a href="assets/xdof-task-success.png"><img src="assets/xdof-task-success.png" alt="XDOF 16 项任务逐模型成功率及成功次数/运行次数，包含工具使用、柔性操作、空间推理与长程任务" width="100%" /></a>
-</p>
-
-[逐任务原图](https://www.xdof.ai/blog/evaluating-llms/task-success.png)。每格同时给出成功率与成功次数 / 有效运行次数；`Overall` 行合并全部运行计算，与上图按任务等权平均的口径不同。
-
-</details>
-
-<table>
-  <tr><th align="left">📝 阅读备注</th></tr>
-  <tr><td><strong>任务设置：</strong>16 类真机任务；逐任务成功率与运行预览<br><br><strong>阅读备注：</strong>图表采用原报告的五模型结果；逐任务完成率便于对照上面的任务难度。Dream-1 的早期预览测试另列，未参与本组排名。<br><br><strong>Zero-shot 条件：</strong>原报告称 zero-shot task reasoning：模型依据任务描述推理，控制栈提供相机、本体说明、历史与工具；不据此推断闭源预训练数据完全未见这些任务。</td></tr>
-</table>
-
-### 五、Cortex · 微波炉与移液器
-
-**【第三方】** **Cortex AI Research · 2026-09-17**　[▶ 视频 / 记录](https://cortexrobot.ai/research/llm-real-world-robotics-evals/)
-
-**任务介绍：** 在同一双臂 YAM BOX 上完成两项任务：把三明治送入微波炉并关门，以及给移液器装上 5 mm 吸头。每次最长 10 分钟，完成中间步骤也可得分。[原始任务与演示](https://cortexrobot.ai/research/llm-real-world-robotics-evals/)
-
-| 任务 | 要完成什么 / 难点 | 难度 |
-| --- | --- | --- |
-| 三明治放进微波炉并关门 | 放入食物，处理突出门口的托盘，再关好门并检查，涉及步骤衔接与接触控制。 | 🌟🌟 |
-| 安装 5 mm 移液器吸头 | 对准小吸头并装牢；还需要识别未装上的情况，重新对齐尝试。 | 🌟🌟🌟 |
-
-**对比模型：** GPT-6 Astra / Gemini 3.8 Flash / Fable 5.1
-
-**两项任务得分对比**
-
-<p align="center">
-  <a href="assets/cortex-microwave-scores.png"><img src="assets/cortex-microwave-scores.png" alt="微波炉任务得分：Astra 80%、Gemini 3.8 Flash 13.3%、Fable 5.1 6.7%" width="48%" /></a>
-  <a href="assets/cortex-pipette-scores.png"><img src="assets/cortex-pipette-scores.png" alt="移液器任务得分：Astra 70%、Gemini 3.8 Flash 30%、Fable 5.1 20%" width="48%" /></a>
-</p>
-
-来源：[Cortex 原报告](https://cortexrobot.ai/research/llm-real-world-robotics-evals/)（2026-09-17）。左图为微波炉任务，右图为移液器任务，点击可看大图。三模型均使用 medium reasoning；**任务得分包含中间步骤，不等于完整成功率**。
-
-<table>
-  <tr><th align="left">📝 小结</th></tr>
-  <tr><td><strong>任务设置：</strong>同一 YAM BOX 平台，顶视与双腕相机；两项操作任务，每次最长 10 分钟<br><br><strong>阅读备注：</strong>各模型均使用深度图像，按中间步骤评分。任务 zero-shot 条件未披露，进度得分不能当作完整任务成功率。<br><br><strong>Zero-shot 条件：</strong>现有收录资料未明确披露任务训练、微调或示范条件，暂不认定为已报告的 zero-shot。</td></tr>
-</table>
-
-### 六、四模型抓南瓜
+### 四、四模型抓南瓜
 
 **【第三方】** **Ali / Archie / Noah · 2026-11-02**　[▶ 视频 / 记录](https://x.com/robot_xyz_rpy/status/2117314589507350695)
 
@@ -237,13 +182,6 @@
 
 
 ---
-
-
-
-<table>
-  <tr><th align="left">能力评级（满分 5⭐）</th></tr>
-  <tr><td>依据当前收录的第三方真机结果与研究者反馈做个人初评；官方演示作为补充，不单独作为能力成立的依据。星级评价已展示的能力，zero-shot 条件另行注明。<br><br>⭐ <strong>较弱：</strong>以失败或局部进展为主。<br>⭐⭐ <strong>初步：</strong>已有少量完整成功，但执行不稳定或任务范围较窄。<br>⭐⭐⭐ <strong>具备基础能力：</strong>多种任务或重复运行已有成功，复杂条件下仍有明显局限。<br>⭐⭐⭐⭐ <strong>较强：</strong>多类任务的重复评测较稳定，并有跨场景表现支持。<br>⭐⭐⭐⭐⭐ <strong>成熟：</strong>复杂任务、不同场景下持续稳定，并有自主纠错与恢复记录支持。<br><br>缺少对应真机材料时标注<strong>“暂不评级”</strong>。能力星级不等于成功率，也不同于 Benchmark 的 3🌟 任务难度；卡片红绿框仍只表示对应任务是否有过完整成功。</td></tr>
-</table>
 
 ## 🤖 Dream-1
 
