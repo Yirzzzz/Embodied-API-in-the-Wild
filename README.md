@@ -23,10 +23,10 @@
 
 模型在真实机器人上到底表现如何？我把一些公开的 zero-shot 复现放在一起，从实际任务和视频里看看各大 api zero-shot 的能力（目前包括 astra、dream1、破壳 api）。
 
-整个项目分为了两个部分去整理：
+整个项目分为两个部分去整理：
 
 1. **Benchmark**，看不同模型在同一套任务中端到端的表现，**目前不涉及非端到端的输出（agent 类）**；
-2. 不同模型 zero-shot 能力表现，分析**理解能力、抓取能力、精细操作能力和长程任务能力**，并总结对于这些 api 泛化能力的感受；
+2. 不同模型 zero-shot 能力表现，分析**抓取能力、感知理解能力、精细操作能力和长程任务能力**，并总结对于这些 api 泛化能力的感受；
 
 这些初步结论综合 **实验结果、视频表现和研究者的使用反馈**。每条案例保留研究者、实验条件、具体结果和原始来源，方便核对与更新。
 
@@ -54,12 +54,14 @@
 | 章节 | 内容 |
 | --- | --- |
 | [📊 Benchmark](#-benchmark) | 多模型对比、任务设置与评测结果（不涉及 agent 类的模型测评） |
-| [🤖 Dream-1](#-dream-1) | [理解能力](#-理解能力) · [抓取能力](#-抓取能力) · [精细操作能力](#-精细操作能力) · [长程任务能力](#-长程任务能力) |
-| [🤖 GPT-6 Astra](#-gpt-6-astra) | [理解能力](#-理解能力-1) · [抓取能力](#-抓取能力-1) · [精细操作能力](#-精细操作能力-1) · [长程任务能力](#-长程任务能力-1) |
-| [🤖 破壳 RoboAPI](#-破壳-roboapipoke-aurora) | [理解能力](#-理解能力-2) · [抓取能力](#-抓取能力-2) · [精细操作能力](#-精细操作能力-2) · [长程任务能力](#-长程任务能力-2) |
-| [🤖 Gemini](#-gemini) | [理解能力](#-理解能力-3) · [抓取能力](#-抓取能力-3) · [精细操作能力](#-精细操作能力-3) · [长程任务能力](#-长程任务能力-3) |
+| [🤖 Dream-1](#-dream-1) | [抓取能力](#-抓取能力) · [感知理解能力](#-感知理解能力) · [精细操作能力](#-精细操作能力) · [长程任务能力](#-长程任务能力) |
+| [🤖 GPT-6 Astra](#-gpt-6-astra) | [抓取能力](#-抓取能力-1) · [感知理解能力](#-感知理解能力-1) · [精细操作能力](#-精细操作能力-1) · [长程任务能力](#-长程任务能力-1) |
+| [🤖 破壳 RoboAPI](#-破壳-roboapipoke-aurora) | [抓取能力](#-抓取能力-2) · [感知理解能力](#-感知理解能力-2) · [精细操作能力](#-精细操作能力-2) · [长程任务能力](#-长程任务能力-2) |
+| [🤖 Gemini](#-gemini) | [抓取能力](#-抓取能力-3) · [感知理解能力](#-感知理解能力-3) · [精细操作能力](#-精细操作能力-3) · [长程任务能力](#-长程任务能力-3) |
 
 ## 📊 Benchmark
+
+> 收录原则： 本仓库优先关注具身 API 的 Zero-shot 真机评测，不以复杂 Agent 系统为主要研究对象。当第三方 Benchmark 包含 Dream-1、RoboAPI 等目标模型的直接操作结果时，即使同时涉及 Agent，也会选择性收录
 
 先看同一套任务里不同模型的表现。这里整理多模型评测与同台测试，关注 zero-shot 复现，也保留有示范或微调的对照。每项评测的训练条件与计分方式分别记录。
 
@@ -151,11 +153,6 @@
 
 来源：[破壳官方发布页](https://pokebot.com/ai)，2026-11-04 页面快照。三组 Poke-Aurora / Astra 成功率依次为 86.0% / 71.3%、54.1% / 36.3%、87.7% / 67.9%；图中另含 π₀.₅ 与 MolmoAct2。
 
-<table>
-  <tr><th align="left">📝 小结</th></tr>
-  <tr><td><strong>我的理解：</strong>这组结果可以帮助选择值得优先复现的任务，但还不足以判断换一个实验室后能否保持相同优势。要验证泛化，需要结合下方外部案例，并在一致条件下重复测试。<br><br><strong>Zero-shot 条件：</strong>官方将 RoboAPI 定位为无需针对新任务额外采集数据或训练的接口；本组各模型的微调、示范、重复次数与预算未完整披露。图中是官方报告的分类成功率，暂不作为独立复现的统一排名。</td></tr>
-</table>
-
 ### 四、四模型抓南瓜
 
 **【第三方】** **Ali / Archie / Noah · 2026-11-02**　[▶ 视频 / 记录](https://x.com/robot_xyz_rpy/status/2117314589507350695)
@@ -186,56 +183,6 @@
 ## 🤖 Dream-1
 
 Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体的能力，但指令约束、精确接触和完整任务执行仍有明显缺口。
-
-### 🧠 理解能力
-
-<table>
-  <tr><th align="left">能力小结 · ⭐（1/5）</th></tr>
-  <tr><td><strong>对于环境的感知理解能力较弱，对于物体的类别泛化能力较弱，但有成功案例</strong><br><br>Eastworld 的 <a href="https://dreamlabs.ai/research/dream-1/assets/beta/eastworld.mp4">zero-shot 苹果入盒</a>提供了成功例子；SE3 的错箱、违反禁抓约束和 Blupe 的选错目标说明，复杂约束遵循仍有明确失败。</td></tr>
-</table>
-
-<table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
-  <tr>
-    <td align="center" valign="top" width="270" style="border:1px solid #cf222e;box-shadow:inset 0 0 0 4px #cf222e;">
-      <a href="https://se3labs.ai/blog/dream-eval-1/clips/cube_lift.mp4"><img src="assets/gifs/dream1-cube-lift.gif" alt="SE3 要求用尺子推齐、不得拿起积木，机械臂却直接抓起积木" width="270" /></a>
-      <br><br>
-      <strong>【第三方】</strong> <strong style="color:#cf222e;">🟥 失败</strong>
-      <br>
-      <strong><a href="https://se3labs.ai/blog/dream-eval-1/#instructions">SE3 · 推齐积木的指令约束</a></strong>
-      <br>
-      <sub>SE3 Labs · 2026-10-30<br>双臂真机 · zero-shot · 本任务 10 次<br>要求用尺子推齐，却违反“不得拿起积木”约束<br>原片全段 · 原标 2×，GIF 未另加速<br><a href="https://docs.se3labs.ai/tasks/robodojo-real/">任务与评分规则</a><br><strong>完整成功率：0%（0/10）<br><a href="https://se3labs.ai/blog/dream-eval-1/#episodes">平均进度分：1/100（10 次均值）</a></strong></sub>
-    </td>
-    <td align="center" valign="top" width="270" style="border:1px solid #cf222e;box-shadow:inset 0 0 0 4px #cf222e;">
-      <a href="https://se3labs.ai/blog/dream-eval-1/clips/wrong_bins.mp4"><img src="assets/gifs/dream1-wrong-bins.gif" alt="SE3 按语言分类任务中将物体放进错误箱子" width="270" /></a>
-      <br><br>
-      <strong>【第三方】</strong> <strong style="color:#cf222e;">🟥 失败</strong>
-      <br>
-      <strong><a href="https://se3labs.ai/blog/dream-eval-1/#instructions">SE3 · 按语言分类</a></strong>
-      <br>
-      <sub>SE3 Labs · 2026-10-30<br>双臂真机 · zero-shot · 本任务 10 次<br>将物体放进错误箱子，未完成分类<br>原片全段 · 原标 2×，GIF 未另加速<br><a href="https://docs.se3labs.ai/tasks/robodojo-real/">任务与评分规则</a><br><strong>完整成功率：0%（0/10）<br><a href="https://se3labs.ai/blog/dream-eval-1/#episodes">平均进度分：8.5/100（10 次均值，原图取整为 9）</a></strong></sub>
-    </td>
-  </tr>
-</table>
-
-#### 更多案例
-
-1. **【第三方】** **[Blupe 社区试用：要苹果，却抓红积木](https://www.reddit.com/r/robotics/comments/1xaz5ve/dream_labs_dropped_a_monster/)**
-
-   u/Lumpy_Week7304 · 2026-10
-
-   **任务：** 按指令移动苹果；作者报告机械臂实际抓红积木且持续动作。尚未取回原视频，动作描述来自作者陈述；附有 [Blupe Playground](https://playground.blupe.io/) 体验入口。
-
-   **成功率 / 进度分：** 未测试（未公开统计）。**任务耗时：** 未披露。
-
-2. **【第三方】** **[XDOF：红色便签的指令推理](https://x.com/xdofai/status/2112252852257353761)** · 📄 [图文评价](https://x.com/xdofai/status/2112252855222673530)
-
-   XDOF · 2026-10-19 · 真机双臂评测平台 · 早期预览版，任务训练条件未披露
-
-   **任务：** 遵循红色便签的指令；**作者评价推理表现不足，未给出逐次结果**。所链记录仅含图文，未附对应任务视频。
-
-   **成功率 / 进度分：** 未测试（未公开统计）。**任务耗时：** 未披露。
-
-
 
 ### 🦾 抓取能力
 
@@ -318,7 +265,53 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 
    **成功率：** 两项均未测试（未公开重复统计）。**任务耗时：** 两项均未披露。
 
+### 🧠 感知理解能力
 
+<table>
+  <tr><th align="left">能力小结 · ⭐（1/5）</th></tr>
+  <tr><td><strong>对于环境的感知理解能力较弱，对于物体的类别泛化能力较弱，但有成功案例</strong><br><br>Eastworld 的 <a href="https://dreamlabs.ai/research/dream-1/assets/beta/eastworld.mp4">zero-shot 苹果入盒</a>提供了成功例子；SE3 的错箱、违反禁抓约束和 Blupe 的选错目标说明，复杂约束遵循仍有明确失败。</td></tr>
+</table>
+
+
+<table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
+  <tr>
+    <td align="center" valign="top" width="270" style="border:1px solid #cf222e;box-shadow:inset 0 0 0 4px #cf222e;">
+      <a href="https://se3labs.ai/blog/dream-eval-1/clips/cube_lift.mp4"><img src="assets/gifs/dream1-cube-lift.gif" alt="SE3 要求用尺子推齐、不得拿起积木，机械臂却直接抓起积木" width="270" /></a>
+      <br><br>
+      <strong>【第三方】</strong> <strong style="color:#cf222e;">🟥 失败</strong>
+      <br>
+      <strong><a href="https://se3labs.ai/blog/dream-eval-1/#instructions">SE3 · 推齐积木的指令约束</a></strong>
+      <br>
+      <sub>SE3 Labs · 2026-10-30<br>双臂真机 · zero-shot · 本任务 10 次<br>要求用尺子推齐，却违反“不得拿起积木”约束<br>原片全段 · 原标 2×，GIF 未另加速<br><a href="https://docs.se3labs.ai/tasks/robodojo-real/">任务与评分规则</a><br><strong>完整成功率：0%（0/10）<br><a href="https://se3labs.ai/blog/dream-eval-1/#episodes">平均进度分：1/100（10 次均值）</a></strong></sub>
+    </td>
+    <td align="center" valign="top" width="270" style="border:1px solid #cf222e;box-shadow:inset 0 0 0 4px #cf222e;">
+      <a href="https://se3labs.ai/blog/dream-eval-1/clips/wrong_bins.mp4"><img src="assets/gifs/dream1-wrong-bins.gif" alt="SE3 按语言分类任务中将物体放进错误箱子" width="270" /></a>
+      <br><br>
+      <strong>【第三方】</strong> <strong style="color:#cf222e;">🟥 失败</strong>
+      <br>
+      <strong><a href="https://se3labs.ai/blog/dream-eval-1/#instructions">SE3 · 按语言分类</a></strong>
+      <br>
+      <sub>SE3 Labs · 2026-10-30<br>双臂真机 · zero-shot · 本任务 10 次<br>将物体放进错误箱子，未完成分类<br>原片全段 · 原标 2×，GIF 未另加速<br><a href="https://docs.se3labs.ai/tasks/robodojo-real/">任务与评分规则</a><br><strong>完整成功率：0%（0/10）<br><a href="https://se3labs.ai/blog/dream-eval-1/#episodes">平均进度分：8.5/100（10 次均值，原图取整为 9）</a></strong></sub>
+    </td>
+  </tr>
+</table>
+#### 更多案例
+
+1. **【第三方】** **[Blupe 社区试用：要苹果，却抓红积木](https://www.reddit.com/r/robotics/comments/1xaz5ve/dream_labs_dropped_a_monster/)**
+
+   u/Lumpy_Week7304 · 2026-10
+
+   **任务：** 按指令移动苹果；作者报告机械臂实际抓红积木且持续动作。尚未取回原视频，动作描述来自作者陈述；附有 [Blupe Playground](https://playground.blupe.io/) 体验入口。
+
+   **成功率 / 进度分：** 未测试（未公开统计）。**任务耗时：** 未披露。
+
+2. **【第三方】** **[XDOF：红色便签的指令推理](https://x.com/xdofai/status/2112252852257353761)** · 📄 [图文评价](https://x.com/xdofai/status/2112252855222673530)
+
+   XDOF · 2026-10-19 · 真机双臂评测平台 · 早期预览版，任务训练条件未披露
+
+   **任务：** 遵循红色便签的指令；**作者评价推理表现不足，未给出逐次结果**。所链记录仅含图文，未附对应任务视频。
+
+   **成功率 / 进度分：** 未测试（未公开统计）。**任务耗时：** 未披露。
 
 ### 🪡 精细操作能力
 
@@ -390,8 +383,6 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
     </td>
   </tr>
 </table>
-
-
 ### 🧩 长程任务能力
 
 <table>
@@ -462,43 +453,6 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 
 把这些真机复现放在一起，我对 Astra 的理解是：它已经能依据语言目标和视觉反馈组织操作，尤其能在执行后检查状态、调整下一步。限制也很具体——认出目标之后，抓取姿态、接触精度和前后动作的衔接仍可能出错，反复修正还会带来明显的时间成本。下面的判断来自公开记录；任务示范、控制代码和传感器配置分别注明。
 
-### 🧠 理解能力
-
-<table>
-  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
-  <tr><td><strong>已展示 zero-shot 空间理解与主动观察。</strong><br><br>SenseNova 的双臂插花中，Astra 移动空闲腕相机看清瓶口，再完成插入。该记录明确无任务示范，支持依据目标、空间关系和新观察调整动作。</td></tr>
-</table>
-
-- **【第三方】** **[OpenRUA：空间理解与指令遵循](https://openrua.ai/uni-robot-agent)** · 📄 报告 · [能力分项图](#二openrua--19-类真机任务)
-
-  OpenRUA Team · 2026-11-03 · 双臂真机 · 报告明确 zero-shot，使用深度
-
-  **能力分项得分：空间理解 17/20，指令遵循 18/20；全套任务总分 80.50/100。** 来自[原报告 Table 2](https://openrua.ai/uni-robot-agent#real-eval-summary)，含完成目标与部分步骤得分；完整任务成功率：**未测试（未公开统计）**。
-
-  在覆盖五个能力维度的任务中获得 80.50 / 100 积分。这是整套任务的得分，包含操作执行，不能单独解释为理解能力或完整任务的成功率。
-
-- **【第三方】** **[SenseNova：移动空闲手臂，看清瓶口再插花](https://www.sensenova.cn/has-gpt-6-astra-achieved-embodied-intelligence#real-world)** · ▶ [原视频](https://www.sensenova.cn/gpt-6/assets/video/realworld/active_vision.mp4)
-
-  SenseNova 联合团队 · 2026-10 · 双臂 AgileX Piper · 无示范、无任务训练，提供结构化本体与工具说明
-
-  **公开演示记录：1/1 完成；重复成功率 / 进度分：未测试。** [论文附录 11.5](https://arxiv.org/html/2610.22471v1#S11.SS5)列出双臂 Piper 插花 1 次、成功 1 次、耗时 21 分钟；属于演示记录，不是多次重复评测。
-
-  单臂配置下，瓶口被遮挡时未完成任务；双臂配置下，Astra 移动另一只手臂上的相机，获得瓶口视角后完成插入。这里能看到观察动作与后续操作之间的衔接。
-
-  <a href="https://www.sensenova.cn/gpt-6/assets/video/realworld/active_vision.mp4"><img src="assets/gifs/astra-active-vision.gif" alt="Astra 单臂与双臂插花对比：移动空闲腕相机观察瓶口" width="640" /></a>
-
-  <sub>主动观察与插花 · 原片全段，原片按阶段标注不同倍速，GIF 未另加速。</sub>
-
-- **【第三方】** **[许华哲：抓筷子、转向与双臂交接的试用感受](https://elsewhere.news/en/crossing/10-qas-inside-the-disagreements-over-embodied-robots-convers)** · 📄 第一手访谈记录
-
-  许华哲 / 破壳机器人 · 2026-09-14 发布 · 内部真机试用；逐项配置、zero-shot 条件未披露
-
-  **成功率 / 进度分：未测试（未公开统计）。**
-
-  访谈记录了拿起筷子并插入杯中的成功，也提及撬动物体、叠盒和折衣的困难；双臂交接多次测试仅成功一两次。没有逐次视频与完整分母，因此作为任务间表现差异的补充记录，不计算成功率。
-
-
-
 ### 🦾 抓取能力
 
 <table>
@@ -551,7 +505,41 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
     </td>
   </tr>
 </table>
+### 🧠 感知理解能力
 
+<table>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>已展示 zero-shot 空间理解与主动观察。</strong><br><br>SenseNova 的双臂插花中，Astra 移动空闲腕相机看清瓶口，再完成插入。该记录明确无任务示范，支持依据目标、空间关系和新观察调整动作。</td></tr>
+</table>
+
+
+- **【第三方】** **[OpenRUA：空间理解与指令遵循](https://openrua.ai/uni-robot-agent)** · 📄 报告 · [能力分项图](#二openrua--19-类真机任务)
+
+  OpenRUA Team · 2026-11-03 · 双臂真机 · 报告明确 zero-shot，使用深度
+
+  **能力分项得分：空间理解 17/20，指令遵循 18/20；全套任务总分 80.50/100。** 来自[原报告 Table 2](https://openrua.ai/uni-robot-agent#real-eval-summary)，含完成目标与部分步骤得分；完整任务成功率：**未测试（未公开统计）**。
+
+  在覆盖五个能力维度的任务中获得 80.50 / 100 积分。这是整套任务的得分，包含操作执行，不能单独解释为理解能力或完整任务的成功率。
+
+- **【第三方】** **[SenseNova：移动空闲手臂，看清瓶口再插花](https://www.sensenova.cn/has-gpt-6-astra-achieved-embodied-intelligence#real-world)** · ▶ [原视频](https://www.sensenova.cn/gpt-6/assets/video/realworld/active_vision.mp4)
+
+  SenseNova 联合团队 · 2026-10 · 双臂 AgileX Piper · 无示范、无任务训练，提供结构化本体与工具说明
+
+  **公开演示记录：1/1 完成；重复成功率 / 进度分：未测试。** [论文附录 11.5](https://arxiv.org/html/2610.22471v1#S11.SS5)列出双臂 Piper 插花 1 次、成功 1 次、耗时 21 分钟；属于演示记录，不是多次重复评测。
+
+  单臂配置下，瓶口被遮挡时未完成任务；双臂配置下，Astra 移动另一只手臂上的相机，获得瓶口视角后完成插入。这里能看到观察动作与后续操作之间的衔接。
+
+  <a href="https://www.sensenova.cn/gpt-6/assets/video/realworld/active_vision.mp4"><img src="assets/gifs/astra-active-vision.gif" alt="Astra 单臂与双臂插花对比：移动空闲腕相机观察瓶口" width="640" /></a>
+
+  <sub>主动观察与插花 · 原片全段，原片按阶段标注不同倍速，GIF 未另加速。</sub>
+
+- **【第三方】** **[许华哲：抓筷子、转向与双臂交接的试用感受](https://elsewhere.news/en/crossing/10-qas-inside-the-disagreements-over-embodied-robots-convers)** · 📄 第一手访谈记录
+
+  许华哲 / 破壳机器人 · 2026-09-14 发布 · 内部真机试用；逐项配置、zero-shot 条件未披露
+
+  **成功率 / 进度分：未测试（未公开统计）。**
+
+  访谈记录了拿起筷子并插入杯中的成功，也提及撬动物体、叠盒和折衣的困难；双臂交接多次测试仅成功一两次。没有逐次视频与完整分母，因此作为任务间表现差异的补充记录，不计算成功率。
 
 ### 🪡 精细操作能力
 
@@ -709,35 +697,6 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 
 破壳的 RoboAPI 由 Poke-Aurora 驱动。这里结合开发者的真机视频、接入体验与失败记录，整理目前能看到的能力。
 
-### 🧠 理解能力
-
-<table>
-  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
-  <tr><td><strong>相较于 dream1 似乎有更强的感知理解能力。</strong><br><br>已有手机放到香蕉左侧、按颜色顺序叠杯的真机演示；逐视频的任务训练与示范条件未披露，因此目前只能确认有这些操作示例。</td></tr>
-</table>
-
-<table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
-  <tr>
-    <td align="center" valign="top" width="270" style="border:1px solid #1a7f37;box-shadow:inset 0 0 0 4px #1a7f37;">
-      <a href="https://assets.pokebot.com/prod/10-30/ai/v21/009.mp4"><img src="assets/gifs/roboapi-phone-left.gif" alt="RoboAPI 将手机放到香蕉左侧" width="270" /></a>
-      <br><br>
-      <strong>【第三方】</strong> <strong style="color:#1a7f37;">🟩 成功</strong> <sub>官方收录</sub>
-      <br>
-      <strong><a href="https://assets.pokebot.com/prod/10-30/ai/v21/009.mp4">手机放到香蕉左侧</a></strong>
-      <br>
-      <sub>北京 / 清华 · zero-shot 条件未逐项披露<br>空间关系指令 · 原片全段，GIF 2×<br><strong>成功率 / 进度分：未测试</strong></sub>
-    </td>
-    <td align="center" valign="top" width="270" style="border:1px solid #1a7f37;box-shadow:inset 0 0 0 4px #1a7f37;">
-      <a href="https://assets.pokebot.com/prod/10-30/ai/v21/025.mp4"><img src="assets/gifs/roboapi-cup-order.gif" alt="RoboAPI 按粉杯蓝杯绿杯的要求顺序叠杯" width="270" /></a>
-      <br><br>
-      <strong>【第三方】</strong> <strong style="color:#1a7f37;">🟩 成功</strong> <sub>官方收录</sub>
-      <br>
-      <strong><a href="https://assets.pokebot.com/prod/10-30/ai/v21/025.mp4">按颜色顺序叠三只杯子</a></strong>
-      <br>
-      <sub>新加坡 / NTU · zero-shot 条件未逐项披露<br>颜色顺序指令 · 原片全段，GIF 2×<br><strong>成功率 / 进度分：未测试</strong></sub>
-    </td>
-  </tr>
-</table>
 
 ### 🦾 抓取能力
 
@@ -791,6 +750,38 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
     </td>
   </tr>
 </table>
+### 🧠 感知理解能力
+
+<table>
+  <tr><th align="left">能力小结 · ⭐⭐⭐（3/5）</th></tr>
+  <tr><td><strong>相较于 dream1 似乎有更强的感知理解能力。</strong><br><br>已有手机放到香蕉左侧、按颜色顺序叠杯的真机演示；逐视频的任务训练与示范条件未披露，因此目前只能确认有这些操作示例。</td></tr>
+</table>
+
+
+<table align="center" style="width:600px;max-width:100%;margin-left:auto;margin-right:auto;">
+  <tr>
+    <td align="center" valign="top" width="270" style="border:1px solid #1a7f37;box-shadow:inset 0 0 0 4px #1a7f37;">
+      <a href="https://assets.pokebot.com/prod/10-30/ai/v21/009.mp4"><img src="assets/gifs/roboapi-phone-left.gif" alt="RoboAPI 将手机放到香蕉左侧" width="270" /></a>
+      <br><br>
+      <strong>【第三方】</strong> <strong style="color:#1a7f37;">🟩 成功</strong> <sub>官方收录</sub>
+      <br>
+      <strong><a href="https://assets.pokebot.com/prod/10-30/ai/v21/009.mp4">手机放到香蕉左侧</a></strong>
+      <br>
+      <sub>北京 / 清华 · zero-shot 条件未逐项披露<br>空间关系指令 · 原片全段，GIF 2×<br><strong>成功率 / 进度分：未测试</strong></sub>
+    </td>
+    <td align="center" valign="top" width="270" style="border:1px solid #1a7f37;box-shadow:inset 0 0 0 4px #1a7f37;">
+      <a href="https://assets.pokebot.com/prod/10-30/ai/v21/025.mp4"><img src="assets/gifs/roboapi-cup-order.gif" alt="RoboAPI 按粉杯蓝杯绿杯的要求顺序叠杯" width="270" /></a>
+      <br><br>
+      <strong>【第三方】</strong> <strong style="color:#1a7f37;">🟩 成功</strong> <sub>官方收录</sub>
+      <br>
+      <strong><a href="https://assets.pokebot.com/prod/10-30/ai/v21/025.mp4">按颜色顺序叠三只杯子</a></strong>
+      <br>
+      <sub>新加坡 / NTU · zero-shot 条件未逐项披露<br>颜色顺序指令 · 原片全段，GIF 2×<br><strong>成功率 / 进度分：未测试</strong></sub>
+    </td>
+  </tr>
+</table>
+
+###
 
 ### 🪡 精细操作能力
 
@@ -869,12 +860,6 @@ Dream-1 的公开复现支持一个初步判断：基础抓放已经有跨本体
 
 Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型配置与控制接口不同，下面按任务记录具体表现。
 
-### 🧠 理解能力
-
-<table>
-  <tr><th align="left">能力小结 · 暂不评级（材料不足）</th></tr>
-  <tr><td><strong>直接材料不足，暂不判断理解能力强弱。</strong><br><br>当前缺少能单独观察目标选择、空间关系或指令约束的真机记录；需要补充对应案例与实验条件后再评级。</td></tr>
-</table>
 
 ### 🦾 抓取能力
 
@@ -905,6 +890,14 @@ Gemini 出现在南瓜、Cortex 和 RoboCurve 等对比中。各评测的模型�
     </td>
   </tr>
 </table>
+### 🧠 感知理解能力
+
+<table>
+  <tr><th align="left">能力小结 · 暂不评级（材料不足）</th></tr>
+  <tr><td><strong>直接材料不足，暂不判断理解能力强弱。</strong><br><br>当前缺少能单独观察目标选择、空间关系或指令约束的真机记录；需要补充对应案例与实验条件后再评级。</td></tr>
+</table>
+
+###
 
 ### 🪡 精细操作能力
 
